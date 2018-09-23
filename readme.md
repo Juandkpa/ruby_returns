@@ -1,5 +1,5 @@
 # **Blocks**
-## **Métdos**
+## **Métodos**
 
 ### **Collect**: Toma un block y aplica la expresíón a cada elemento en una array
 ```ruby
@@ -105,4 +105,127 @@ my_arr = ["raindrops", :kettless, "Whiskers", :mittens, :package]
 symbol_filter = lambda{ |p| p.is_a? Symbol }
 symbols = my_arr.select(&symbol_filter)
 ```
+
+# **Clases**
+## **Sintaxis**:
+```ruby
+class NewClass
+    #code here
+end
+```
+## **Convesión:** 
+Empieza con mayuscula y usa camelcase
+### **Constructor**
+```ruby
+def initialize()
+end
+```
+### **Variable de instancia**
+```ruby
+@name
+```
+Un nuevo objeto se crea como :
+```ruby
+matz = Person.new("Yukihiro")
+```
+
+# **Alcance (Scope)**
+El scope de una variable es el contexto en el cual esta es visible para el programa.
+
+No todas las variables son accesibles en todos las partes de un programa todo el tiempo.
+
+## **Exiten:**
+- ### **Varibles Globales:** Están disponibles en cualquier lugar.
+- ### **Variables Locales:** Están disponibles dentro de la instancia de una clase.
+- ### **Variables de clase:** Están disponibles solo en la clase en particular.
+
+** la misma logica se tiene para los métodos.
+```ruby
+$global #variable global
+@instancia #variable local o de instancia
+@@class_var  #variable de clase
+```
+# **Herencia**
+Es usada para expresar una relación de un a es un b. Una clase toma metodos y atributos de otra
+
+## **Ejemplo:** un perro es un animal.
+En ruby la herencia se define como:
+```ruby
+Perro < Mamífero
+```
+```ruby
+class Mamifero
+    def behave
+        puts "Me comporto como mamifero"
+    end
+end
+
+class Perro < Mamifero
+end
+
+tony = Perro.new
+tony.behave
+```
+
+## **Sobreescribir (Override)**
+Es posible sobreescribir un método de la clase padre en su clas ehija, para añadir el compartamiento deseado.
+```ruby 
+class Creature
+    def initialize(name)
+        @name = name
+    end
+
+    def fight
+        return "Puch to the chops!"
+    end
+end
+
+class Dragon < Creature
+    def fight
+        return "Breathes fire!"
+    end
+end
+```
+
+
+## **Super**
+Se usa para llamar al método de la clase padre, desde la clase hija.
+
+```ruby
+class Dragon < Creature
+    def fight
+        puts "Instead of breathing fire .. "
+        super()
+    end
+end
+```
+Lo que hace es buscar el método que tenga el mismo nombre en la clase padre y ejecutarlo. Deben pasarse los argumentos si estos son necesarios.
+
+**Truco:** Si se quiere finalizar una declaración ruby sin necesidad de crear una nueva linea, se puede usar **;**
+```ruby
+class Monkey
+end
+class Monkey ; end
+```
+## **Ejemplo**
+```ruby
+class Message
+    @@messages_sent = 0
+    def initialize(from, to)
+        @from = from
+        @to   = to
+        @@messages_sent += 1
+    end
+end
+
+class Email < Message
+    def initialize(from, to)
+        super(from, to)
+    end
+end
+
+
+
+
+
    
