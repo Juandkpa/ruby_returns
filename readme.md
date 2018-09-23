@@ -63,8 +63,46 @@ hi = Proc.new { puts "Hello"}
 hi.call
 ```
 
-Los **simbolos** también peuden ser convertidos a Procs usando el útil *&*
+Los **símbolos** también peuden ser convertidos a Procs usando el útil *&*
 ```ruby
 strings = ["1", "2", "3"]
 nums = strings.map(&:to_i)
 ```
+
+# **Lamba**
+Son muy similares a los procs.
+
+```ruby
+lambda { puts "hello" }
+Proc.new { puts "hello"}
+
+def lambda_demo(a_lambda)
+    puts "Estoy en el método!"
+    a_lambda.call
+end
+
+lambda_demo( lambda {puts "Yo soy el lambda"} )
+```
+## **Sintaxis:** 
+```ruby
+lambda { |param| block}
+```
+##  **Ejemplo:**
+```ruby
+symbolize = lambda { |st| st.intern }
+strings.collect!(&symbolize)
+```
+
+
+# **Lambda Vs Procs**
+Como habiamos dicho antes son muy similares, solo tienen 2 diferencias:
+
+1. Lambda verifica el número de argumentos que se le pasan, Así si se le pasan un número erroneo de argumentos, lanzará un error. Cosa que no pasa en el Proc, que simplemente lo ignora asignandole *nil*
+2. Cuando un lambda retorna, pasa el control al método desde el cual fue invocado, en cambio cuando retorna, lo hace de inmediato sin pasar por el método que lo ha invocado.
+
+```ruby
+my_arr = ["raindrops", :kettless, "Whiskers", :mittens, :package]
+symbol_filter = lambda{ |p| p.is_a? Symbol }
+symbols = my_arr.select(&symbol_filter)
+```
+   
