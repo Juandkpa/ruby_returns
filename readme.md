@@ -62,3 +62,9 @@ Los Procs pueden ser llamados directamente usando el método de Ruby .call.
 hi = Proc.new { puts "Hello"}
 hi.call
 ```
+
+Los **simbolos** también peuden ser convertidos a Procs usando el útil *&*
+```ruby
+strings = ["1", "2", "3"]
+nums = strings.map(&:to_i)
+```
