@@ -135,7 +135,7 @@ El scope de una variable es el contexto en el cual esta es visible para el progr
 No todas las variables son accesibles en todos las partes de un programa todo el tiempo.
 
 ## **Exiten:**
-- ### **Varibles Globales:** Están disponibles en cualquier lugar.
+- ### **Varibles Globales:**  Están disponibles en cualquier lugar.
 - ### **Variables Locales:** Están disponibles dentro de la instancia de una clase.
 - ### **Variables de clase:** Están disponibles solo en la clase en particular.
 
@@ -223,6 +223,175 @@ class Email < Message
         super(from, to)
     end
 end
+```
+
+# **Métodos**
+## **De clase**
+Métodos que manejan variables de clase y que corren sobre la clase y no la instancia, se definen como
+```ruby
+def Computer.get_user()
+    return @@users
+end
+```
+
+## **Públicos y Privados**
+```ruby
+class Person
+    def initialize(name, age)
+        @name = name
+        @age = age
+    end
+
+    public
+    def about_me
+        puts "Soy #{@name} y tengo #{@age} años"
+    end
+
+    private
+    def bank_account_number
+        @account_number = 12345
+        puts "Mi número de cuenta bancaria es #{@account_number}"
+    end
+end
+
+eric = Person.new("Eric", 26)
+eric.about_me
+eric.bank_account_number
+```
+*En ruby los métodos son públicos por defecto.
+
+## **attr_reader, attr_writer**
+Sirven para poder leer o escribir un atributo de la clase, desde una instancía de la misma
+```ruby
+class Person
+    attr_reader :name
+    attr_writer :name
+    def initialize(name)
+        @name=name
+    end
+end
+```
+## **attr_accessor**
+Crea las dos posibilidades.
+```ruby
+class Person
+    attr_reader :name
+    attr_accessor :job
+    def initialize(name, job)
+        @name = name
+        @job = job
+    end
+end
+```
+
+# **Módulos**
+
+Un módulo es como una caja de herramientas que contiene un conjunto de métodos y constantes que usan en las ocaciones que se necesiten.
+
+```ruby
+module Circle
+    PI = 3.141592653589793
+    
+    def Circle.area(radius)
+        PI * radius ** 2
+    end
+
+    def Circle.circumferencia(radius)
+        2 * PI * radius
+    end
+end
+```
+*Ruby no restringe cuando vamos a reasignar el valor de una constante, pero arroja una advertencia.
+
+Uno de los principlaes propositos de los módulos es separar las constantes y métodos dentro de espacios de nombres namespaces, de esta manera Ruby no confunte Math::PI vs Circle::PI
+
+*:: Scope Resolution Operator*
+## **Módulos Existentes**
+Algunos módulos se cargan por defecto en el navegador, como el módulo Math, otros por el contrario debemos llamarlos de forma explicita, así:
+```ruby
+require 'module'
+
+require 'date'
+puts Date.today
+```
+Además de usar require, también se puede usar include, en este caso la clase que incluye un módulo puede usar todos sus métodos directamente, sin usar el *:: scope resolution operator*
+
+```ruby
+class Angle
+    include Math
+    attr_accessor :radians
+    
+    def initialize(radias)
+        @radias = radians
+    end
+
+    def cosine
+        cos(@radians)
+    end
+end
+
+acute = Angle.new(n)
+acute.cosine
+```
+
+## **Relación entre módulos y clases**
+## **Mixin**
+Es cuando un módulo es usado para adicionar comportamiento e información de ntro de una clase (instancia)
+Nos permite personalizar una clase sin tener que reescribir código.
+```ruby
+module Action
+    def jump
+        @distance = rad(4) + 2
+        puts " I jumped forward #{@distance} feet!"
+    end
+end
+
+class Rabbit
+    include Action
+    attr_reader :name
+    def initialize(name)
+        @name = name
+    end
+end
+
+class Cricket
+    include Action
+    attr_reader :name
+    def initialize(name)
+        @name = name
+    end
+end
+
+peter = Rabit.new("Peter")
+jim = Cricket.new("Jim")
+
+peter.jump
+jim.jump
+```
+
+## **Imitando múltiple herencia**
+De esta manera se puede añadir comportamientos de varios módulos en una definición de clase.
+
+## **Extend**
+Es usada para agregar comportamientos y caracteristicas de un módulo a una clase, a nivel de clase.
+
+```ruby
+module ThePresent
+    def now
+        puts "It's #{Time.new.hour}"
+    end
+end
+
+class ThehereAnd
+    extend ThePresent
+end
+
+ThehereAnd.now
+```
+
+
+
+
 
 
 
