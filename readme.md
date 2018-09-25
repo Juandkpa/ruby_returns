@@ -98,7 +98,7 @@ strings.collect!(&symbolize)
 Como habiamos dicho antes son muy similares, solo tienen 2 diferencias:
 
 1. Lambda verifica el número de argumentos que se le pasan, Así si se le pasan un número erroneo de argumentos, lanzará un error. Cosa que no pasa en el Proc, que simplemente lo ignora asignandole *nil*
-2. Cuando un lambda retorna, pasa el control al método desde el cual fue invocado, en cambio cuando retorna, lo hace de inmediato sin pasar por el método que lo ha invocado.
+2. Cuando un lambda retorna, pasa el control al método desde el cual fue invocado, en cambio cuando el Procs retorna, lo hace de inmediato sin pasar por el método que lo ha invocado.
 
 ```ruby
 my_arr = ["raindrops", :kettless, "Whiskers", :mittens, :package]
@@ -148,10 +148,10 @@ $global #variable global
 # **Herencia**
 Es usada para expresar una relación de un a es un b. Una clase toma metodos y atributos de otra
 
-## **Ejemplo:** un perro es un animal.
+## **Ejemplo:** un perro es un mamífero.
 En ruby la herencia se define como:
 ```ruby
-Perro < Mamífero
+Perro < Mamifero
 ```
 ```ruby
 class Mamifero
@@ -341,7 +341,7 @@ Nos permite personalizar una clase sin tener que reescribir código.
 ```ruby
 module Action
     def jump
-        @distance = rad(4) + 2
+        @distance = rand(4) + 2
         puts " I jumped forward #{@distance} feet!"
     end
 end
